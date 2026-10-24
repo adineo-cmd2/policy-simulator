@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+<BaseLayout title="Settings — Policy Impact Simulator">
+<h1 class="mb-4 font-serif text-2xl font-bold text-navy">Settings</h1>
+<div class="space-y-4">
+  <div class="rounded border border-navy/20 bg-parchment p-4">
+    <h2 class="text-sm font-bold text-navy">Backend</h2>
+    <p class="mt-1 text-xs text-inksoft">API base: <span id="base">…</span></p>
+    <p class="mt-1 text-xs text-inksoft">No login required — single local user.</p>
+  </div>
+</div>
+<script>
+  import { BASE } from '../lib/apiClient';
+  const base = document.getElementById('base')!;
+  base.textContent = BASE;
+</script>
+</BaseLayout>

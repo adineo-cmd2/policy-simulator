@@ -1,0 +1,60 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Disclaimer from "../components/Disclaimer.astro";
+---
+<BaseLayout title="History — Policy Impact Simulator">
+<h1 class="mb-4 font-serif text-2xl font-bold text-navy">History</h1>
+<Disclaimer />
+<div class="rounded border border-navy/20 bg-parchment p-4">
+  <ul id="list" class="space-y-2 text-sm"><li class="text-inksoft">Loading…</li></ul>
+  <p id="err" class="mt-2 text-sm text-red-700"></p>
+</div>
+<script>
+  import { apiGet, apiDelete } from '../lib/apiClient';
+  function rowsOf(d: unknown): any[] {
+    if (Array.isArray(d)) return d as any[];
+    if (d && typeof d === 'object' && Array.isArray((d as any).rows)) return (d as any).rows;
+    return [];
+  }
+  async function load() {
+    const list = document.getElementById('list')!;
+    const err = document.getElementById('err')!;
+    try {
+      const data = await apiGet('/api/policy/history');
+      const items = rowsOf(data);
+      list.innerHTML = '';
+      if (!items.length) list.innerHTML = '<li class="text-inksoft">No submissions yet.</li>';
+      for (const s of items) {
+        const li = document.createElement('li');
+        li.className = 'flex flex-wrap items-center justify-between gap-2 rounded border border-navy/20 bg-paper px-3 py-2';
+        const span = document.createElement('span');
+        const n = s.effects ?? s.count ?? 0;
+        span.textContent = `#${s.id} ${s.policy_domain ?? s.domain ?? ''} · ${s.jurisdiction ?? ''} · ${n} effects`;
+        const wrap = document.createElement('span');
+        wrap.className = 'flex gap-2';
+        const a = document.createElement('a');
+        a.href = `/impact?sid=${s.id}`;
+        a.textContent = 'Open';
+        a.className = 'rounded bg-navy px-2 py-0.5 text-paper';
+        const del = document.createElement('button');
+        del.textContent = 'Delete';
+        del.className = 'rounded border border-gold/60 px-2 py-0.5 text-gold';
+        del.onclick = async () => {
+          try {
+            await apiDelete(`/api/policy/${s.id}`);
+            await load();
+          } catch (e) {
+            err.textContent = e instanceof Error ? e.message : 'Delete failed.';
+          }
+        };
+        wrap.append(a, del);
+        li.append(span, wrap);
+        list.appendChild(li);
+      }
+    } catch (e) {
+      err.textContent = e instanceof Error ? e.message : 'Load failed. Sign in via Settings first.';
+    }
+  }
+  load();
+</script>
+</BaseLayout>

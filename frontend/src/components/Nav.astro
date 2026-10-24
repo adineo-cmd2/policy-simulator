@@ -1,0 +1,22 @@
+---
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/submit', label: 'Submit' },
+  { href: '/impact', label: 'Impact' },
+  { href: '/compare', label: 'Compare' },
+  { href: '/history', label: 'History' },
+  { href: '/settings', label: 'Settings' },
+];
+---
+<nav class="border-b-2 border-gold bg-navy">
+  <div class="mx-auto flex max-w-4xl items-center justify-between px-4 py-3">
+    <a href="/" class="font-serif text-lg font-bold text-paper">Policy Impact Simulator</a>
+    <ul class="flex flex-wrap gap-4">
+      {links.map((l) => (
+        <li>
+          <a href={l.href} class="text-sm text-paper/90 hover:text-goldsoft hover:underline">{l.label}</a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</nav>

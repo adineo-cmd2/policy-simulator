@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #ffffff;
+  color: #1e3a5f;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+a {
+  color: #1e3a5f;
+}
+
+textarea, input, select {
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}

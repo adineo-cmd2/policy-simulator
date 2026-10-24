@@ -1,0 +1,65 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Disclaimer from "../components/Disclaimer.astro";
+---
+<BaseLayout title="Submit — Policy Impact Simulator">
+<h1 class="mb-4 font-serif text-2xl font-bold text-navy">Submit a policy</h1>
+<Disclaimer />
+<div class="rounded border border-navy/20 bg-paper p-4">
+  <label class="block text-xs font-bold text-navy" for="policy_text">Policy description</label>
+  <textarea id="policy_text" rows="6" placeholder="Describe the proposed law or regulation…" class="mt-1 w-full rounded border border-navy/30 bg-parchment p-2 text-sm"></textarea>
+  <div class="mt-3 grid grid-cols-1 gap-2 md:grid-cols-2">
+    <div>
+      <label class="block text-xs font-bold text-navy" for="jurisdiction">Jurisdiction</label>
+      <select id="jurisdiction" class="mt-1 w-full rounded border border-navy/30 bg-parchment p-2 text-sm">
+        <option value="national">national</option>
+        <option value="regional">regional</option>
+        <option value="municipal">municipal</option>
+      </select>
+    </div>
+    <div>
+      <label class="block text-xs font-bold text-navy" for="policy_domain">Policy domain</label>
+      <select id="policy_domain" class="mt-1 w-full rounded border border-navy/30 bg-parchment p-2 text-sm">
+        <option value="housing">housing</option>
+        <option value="healthcare">healthcare</option>
+        <option value="taxation">taxation</option>
+        <option value="environment">environment</option>
+        <option value="education">education</option>
+        <option value="labour">labour</option>
+        <option value="trade">trade</option>
+        <option value="general">general</option>
+      </select>
+    </div>
+  </div>
+  <label class="mt-3 block text-xs font-bold text-navy" for="context">Additional context (optional)</label>
+  <textarea id="context" rows="2" placeholder="Target demographic, scope, timeline…" class="mt-1 w-full rounded border border-navy/30 bg-parchment p-2 text-sm"></textarea>
+  <div class="mt-3 flex items-center gap-3">
+    <button id="go" class="rounded bg-navy px-4 py-2 text-sm font-bold text-paper">Simulate</button>
+    <p id="err" class="text-sm text-red-700"></p>
+  </div>
+</div>
+<p class="mt-3 text-xs text-inksoft">Outputs are speculative, neutrally framed projections.</p>
+<script>
+  import { apiPost } from '../lib/apiClient';
+  const btn = document.getElementById('go')!;
+  const err = document.getElementById('err')!;
+  btn.addEventListener('click', async () => {
+    err.textContent = '';
+    const policy_text = (document.getElementById('policy_text') as HTMLTextAreaElement).value;
+    const jurisdiction = (document.getElementById('jurisdiction') as HTMLSelectElement).value;
+    const policy_domain = (document.getElementById('policy_domain') as HTMLSelectElement).value;
+    const context = (document.getElementById('context') as HTMLTextAreaElement).value;
+    btn.textContent = 'Simulating…';
+    (btn as HTMLButtonElement).disabled = true;
+    try {
+      const res = await apiPost('/api/policy/submit', { policy_text, jurisdiction, policy_domain, target_demographic: context || undefined });
+      const sid = res.submission_id ?? res.id;
+      window.location.href = `/impact?sid=${sid}`;
+    } catch (e) {
+      err.textContent = e instanceof Error ? e.message : 'Submit failed.';
+      btn.textContent = 'Simulate';
+      (btn as HTMLButtonElement).disabled = false;
+    }
+  });
+</script>
+</BaseLayout>

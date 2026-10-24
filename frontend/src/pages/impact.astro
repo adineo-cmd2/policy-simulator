@@ -1,0 +1,29 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Disclaimer from "../components/Disclaimer.astro";
+import EffectsTree from "../components/EffectsTree.tsx";
+import DemographicGrid from "../components/DemographicGrid.tsx";
+import StakeholderMap from "../components/StakeholderMap.tsx";
+import AnalogiesList from "../components/AnalogiesList.tsx";
+
+const sid = Astro.url.searchParams.get('sid') ?? '';
+---
+<BaseLayout title="Impact — Policy Impact Simulator">
+<h1 class="mb-4 font-serif text-2xl font-bold text-navy">Impact {sid ? `#${sid}` : ''}</h1>
+<Disclaimer />
+{!sid && (
+  <p class="rounded border border-gold/60 bg-goldsoft/50 p-3 text-sm text-navy">No submission id provided. <a class="underline" href="/submit">Submit a policy</a> or open one from <a class="underline" href="/history">History</a>.</p>
+)}
+{sid && (
+  <>
+    <h2 class="mb-2 mt-6 font-serif text-lg font-bold text-navy">Effect tree (1st → 2nd → 3rd order)</h2>
+    <EffectsTree sid={sid} client:visible />
+    <h2 class="mb-2 mt-8 font-serif text-lg font-bold text-navy">Demographic impact matrix</h2>
+    <DemographicGrid sid={sid} client:visible />
+    <h2 class="mb-2 mt-8 font-serif text-lg font-bold text-navy">Stakeholder map</h2>
+    <StakeholderMap sid={sid} client:visible />
+    <h2 class="mb-2 mt-8 font-serif text-lg font-bold text-navy">Historical analogies</h2>
+    <AnalogiesList sid={sid} client:visible />
+  </>
+)}
+</BaseLayout>
