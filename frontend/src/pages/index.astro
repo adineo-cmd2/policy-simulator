@@ -1,37 +1,121 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+
+const base = (import.meta.env.BASE_URL ?? '/').replace(/\/$/, '');
 ---
-<BaseLayout title="Policy Impact Simulator — speculative effect mapping">
-<h1 class="font-serif text-3xl font-bold text-navy">Policy Impact Simulator</h1>
-<p class="mt-4 max-w-2xl text-sm text-navy/90">Describe a proposed law or regulation. Get a structured 1st → 2nd → 3rd order effect tree with direction, magnitude and confidence per node, plus a demographic impact matrix, a stakeholder benefit/harm map, historical analogies, and side-by-side comparison of two proposals.</p>
-<div class="mt-6 flex flex-wrap gap-3 text-sm">
-  <a href="/submit" class="rounded bg-navy px-4 py-1.5 font-bold text-paper">Simulate a policy</a>
-  <a href="/compare" class="rounded border border-navy/40 px-4 py-1.5">Compare two policies</a>
-  <a href="/history" class="rounded border border-navy/40 px-4 py-1.5">History</a>
-</div>
-<div class="mt-8 rounded border border-navy/20 bg-parchment p-4">
-  <h2 class="text-sm font-bold text-navy">Second-order explainer — why indirect effects matter</h2>
-  <p class="mt-2 text-xs text-navy/90">First-order effects are the direct, intended consequences of a rule (for example, a cap changes a price). Second-order effects are how people and organisations respond to that change (for example, supply or participation shifts). Third-order effects are the emergent, system-level outcomes of those responses (for example, availability or access patterns over time).</p>
-  <div class="mt-3 grid grid-cols-1 gap-2 text-center text-xs md:grid-cols-3">
-    <div class="rounded border border-navy/40 bg-paper p-3">
-      <p class="font-bold text-navy">1st order — direct</p>
-      <p class="mt-1 text-inksoft">The rule changes an incentive, price, or requirement.</p>
-    </div>
-    <div class="rounded border border-navy/40 bg-paper p-3">
-      <p class="font-bold text-navy">2nd order — response</p>
-      <p class="mt-1 text-inksoft">Affected groups adjust behaviour in response.</p>
-    </div>
-    <div class="rounded border border-gold/60 bg-goldsoft/50 p-3">
-      <p class="font-bold text-navy">3rd order — emergent</p>
-      <p class="mt-1 text-inksoft">System-level pattern that follows from responses.</p>
-    </div>
+<BaseLayout title="Policy Impact Simulator" description="Describe a proposed law or regulation. Get a structured 1st → 2nd → 3rd order effect tree with direction, magnitude and confidence per node, plus demographic and stakeholder maps.">
+<section class="hero">
+  <span class="hero-badge">1st → 2nd → 3rd order effects</span>
+  <h1 class="display-1">Trace a policy past its<br/><span class="grad-text">first-order effects.</span></h1>
+  <p class="lead">Describe a proposed law or regulation. Get a structured 1st → 2nd → 3rd order effect tree with direction, magnitude and confidence per node — plus a demographic impact matrix, a stakeholder map, historical analogies, and side-by-side comparison.</p>
+  <div class="hero-ctas">
+<a href={`${base}/submit`} class="btn btn-accent btn-lg">Simulate a policy</a>
+<a href={`${base}/compare`} class="btn btn-ghost btn-lg">Compare two policies</a>
   </div>
-  <p class="mt-2 text-xs text-inksoft">All projections are speculative modelling with stated confidence — illustrative structure, not forecasts.</p>
+  <div class="hero-meta">
+<span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M4 10h16M12 3 3 8h18l-9-5zM6 10v8M10 10v8M14 10v8M18 10v8"/></svg>Historical analogies included</span>
+<span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 21h14M12 6 5 8l-2.5 6a3.5 3.5 0 0 0 5 0L5 8M12 6l7 2 2.5 6a3.5 3.5 0 0 1-5 0L19 8"/></svg>Stakeholder benefit / harm map</span>
+<span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15v3M12 10v8M17 6v12"/></svg>Demographic impact matrix</span>
+  </div>
+</section>
+
+<section class="section">
+  <div class="grid-3">
+<article class="card card-hover p-5 reveal">
+  <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="4" r="2.5"/><circle cx="6" cy="20" r="2.5"/><circle cx="18" cy="12" r="2.5"/><path d="M6 6.5v11M8.5 5.8c4 1 5.7 3.4 7 5.9"/></svg></div>
+  <h3 class="text-[1.02rem] font-semibold" style="letter-spacing:-0.01em">Effect tree</h3>
+  <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">Direct, response and emergent effects — each node carries direction, magnitude and confidence.</p>
+</article>
+<article class="card card-hover p-5 reveal">
+  <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
+  <h3 class="text-[1.02rem] font-semibold" style="letter-spacing:-0.01em">Demographic matrix</h3>
+  <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">How each group is affected, at a glance, across the full effect tree.</p>
+</article>
+<article class="card card-hover p-5 reveal">
+  <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 21h14M12 6 5 8l-2.5 6a3.5 3.5 0 0 0 5 0L5 8M12 6l7 2 2.5 6a3.5 3.5 0 0 1-5 0L19 8"/></svg></div>
+  <h3 class="text-[1.02rem] font-semibold" style="letter-spacing:-0.01em">Stakeholder map</h3>
+  <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">Who benefits, who is harmed — mapped, not hand-waved.</p>
+</article>
+<article class="card card-hover p-5 reveal">
+  <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15zM4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg></div>
+  <h3 class="text-[1.02rem] font-semibold" style="letter-spacing:-0.01em">Historical analogies</h3>
+  <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">Similar past policies and what actually happened after them.</p>
+</article>
+<article class="card card-hover p-5 reveal">
+  <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v18M16 3v18M3 8h5M3 16h5M16 12h5M12 5l4 3-4 3"/></svg></div>
+  <h3 class="text-[1.02rem] font-semibold" style="letter-spacing:-0.01em">Side-by-side</h3>
+  <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">Put two proposals next to each other and compare their projected effects.</p>
+</article>
+<article class="card card-hover p-5 reveal">
+  <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+  <h3 class="text-[1.02rem] font-semibold" style="letter-spacing:-0.01em">Run history</h3>
+  <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">Every simulated policy is saved and re-openable.</p>
+</article>
+  </div>
+</section>
+
+<section class="section reveal">
+  <div class="section-head">
+    <p class="eyebrow">Showcase</p>
+    <h2 class="section-title">Why indirect effects matter</h2>
+    <p class="lead">First-order effects are the direct, intended consequences. What follows is where policy lives.</p>
+  </div>
+
+<div class="grid gap-3 md:grid-cols-3" style="max-width: 52rem; margin: 0 auto">
+  <div class="card card-hover p-5">
+    <p class="eyebrow">1st order — direct</p>
+    <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">The rule changes an incentive, price, or requirement.</p>
+  </div>
+  <div class="card card-hover p-5">
+    <p class="eyebrow">2nd order — response</p>
+    <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">Affected groups adjust behaviour in response.</p>
+  </div>
+  <div class="card card-hover p-5" style="border-color: var(--accent)">
+    <p class="eyebrow">3rd order — emergent</p>
+    <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">System-level pattern that follows from responses.</p>
+  </div>
 </div>
-<h2 class="mt-8 font-serif text-lg font-bold text-navy">How it works</h2>
-<ol class="mt-2 list-decimal space-y-1 pl-6 text-sm text-navy/90">
-  <li>Submit policy text with jurisdiction and domain.</li>
-  <li>Read the effect tree, demographic grid, stakeholder map, and analogies.</li>
-  <li>Compare two submissions side by side; manage past runs in History.</li>
-</ol>
+
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <p class="eyebrow">How it works</p>
+    <h2 class="section-title">Three steps, no fluff</h2>
+  </div>
+  <div class="grid-3">
+<div class="step reveal">
+  <div class="step-num">01</div>
+  <h3 class="mt-2 text-[1rem] font-semibold">Submit policy text</h3>
+  <p class="mt-1.5 text-sm leading-relaxed" style="color: var(--ink-soft)">With jurisdiction and domain for context.</p>
+</div>
+<div class="step reveal">
+  <div class="step-num">02</div>
+  <h3 class="mt-2 text-[1rem] font-semibold">Read the impact</h3>
+  <p class="mt-1.5 text-sm leading-relaxed" style="color: var(--ink-soft)">Effect tree, demographic grid, stakeholder map and analogies.</p>
+</div>
+<div class="step reveal">
+  <div class="step-num">03</div>
+  <h3 class="mt-2 text-[1rem] font-semibold">Compare & revisit</h3>
+  <p class="mt-1.5 text-sm leading-relaxed" style="color: var(--ink-soft)">Weigh two proposals side by side; reopen past runs in History.</p>
+</div>
+  </div>
+</section>
+
+<section class="section reveal">
+  <div class="note-band">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    <p>All projections are speculative modelling with stated confidence — illustrative structure, not forecasts.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="cta-band reveal">
+    <h2 class="section-title">What does your policy set in motion?</h2>
+    <p class="lead" style="margin: 0.8rem auto 1.8rem">Map the direct effects, the responses, and what emerges.</p>
+    <a href={`${base}/submit`} class="btn btn-accent btn-lg">Simulate a policy</a>
+  </div>
+</section>
+
 </BaseLayout>

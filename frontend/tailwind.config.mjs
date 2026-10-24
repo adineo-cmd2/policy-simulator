@@ -4,19 +4,42 @@ export default {
   theme: {
     extend: {
       colors: {
-        navy: '#1e3a5f',
-        navydeep: '#142840',
-        navyedge: '#2c4f7c',
-        paper: '#ffffff',
-        parchment: '#f7f5ef',
-        gold: '#b45309',
-        goldsoft: '#f5e6cf',
-        inksoft: '#5b6b7f',
-      },
+        "navy": "#1e3a5f",
+        "navydeep": "#142840",
+        "navyedge": "#2c4f7c",
+        "paper": "#ffffff",
+        "parchment": "#f7f5ef",
+        "gold": "#b45309",
+        "goldsoft": "#f5e6cf",
+        "inksoft": "#5b6b7f"
+},
       fontFamily: {
-        serif: ['Georgia', '"Times New Roman"', 'serif'],
-        sans: ['system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
-      },
+        "display": [
+                "'Spectral'",
+                "Georgia",
+                "serif"
+        ],
+        "body": [
+                "'Libre Franklin'",
+                "system-ui",
+                "sans-serif"
+        ],
+        "mono": [
+                "'JetBrains Mono'",
+                "ui-monospace",
+                "monospace"
+        ],
+        "serif": [
+                "'Spectral'",
+                "Georgia",
+                "serif"
+        ],
+        "sans": [
+                "'Libre Franklin'",
+                "system-ui",
+                "sans-serif"
+        ]
+},
     },
   },
   plugins: [],

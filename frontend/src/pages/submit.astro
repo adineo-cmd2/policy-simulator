@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Disclaimer from "../components/Disclaimer.astro";
 ---
 <BaseLayout title="Submit — Policy Impact Simulator">
-<h1 class="mb-4 font-serif text-2xl font-bold text-navy">Submit a policy</h1>
+<h1 class="page-title">Submit a policy</h1>
 <Disclaimer />
 <div class="rounded border border-navy/20 bg-paper p-4">
   <label class="block text-xs font-bold text-navy" for="policy_text">Policy description</label>
@@ -40,6 +40,7 @@ import Disclaimer from "../components/Disclaimer.astro";
 </div>
 <p class="mt-3 text-xs text-inksoft">Outputs are speculative, neutrally framed projections.</p>
 <script>
+  const BASE = (import.meta.env.BASE_URL ?? '/').replace(/\/$/, '');
   import { apiPost } from '../lib/apiClient';
   const btn = document.getElementById('go')!;
   const err = document.getElementById('err')!;
@@ -54,7 +55,7 @@ import Disclaimer from "../components/Disclaimer.astro";
     try {
       const res = await apiPost('/api/policy/submit', { policy_text, jurisdiction, policy_domain, target_demographic: context || undefined });
       const sid = res.submission_id ?? res.id;
-      window.location.href = `/impact?sid=${sid}`;
+      window.location.href = `${BASE}/impact?sid=${sid}`;
     } catch (e) {
       err.textContent = e instanceof Error ? e.message : 'Submit failed.';
       btn.textContent = 'Simulate';

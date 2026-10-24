@@ -7,12 +7,14 @@ import StakeholderMap from "../components/StakeholderMap.tsx";
 import AnalogiesList from "../components/AnalogiesList.tsx";
 
 const sid = Astro.url.searchParams.get('sid') ?? '';
+
+const base = (import.meta.env.BASE_URL ?? '/').replace(/\/$/, '');
 ---
 <BaseLayout title="Impact — Policy Impact Simulator">
-<h1 class="mb-4 font-serif text-2xl font-bold text-navy">Impact {sid ? `#${sid}` : ''}</h1>
+<h1 class="page-title">Impact {sid ? `#${sid}` : ''}</h1>
 <Disclaimer />
 {!sid && (
-  <p class="rounded border border-gold/60 bg-goldsoft/50 p-3 text-sm text-navy">No submission id provided. <a class="underline" href="/submit">Submit a policy</a> or open one from <a class="underline" href="/history">History</a>.</p>
+  <p class="rounded border border-gold/60 bg-goldsoft/50 p-3 text-sm text-navy">No submission id provided. <a class="underline" href={`${base}/submit`}>Submit a policy</a> or open one from <a class="underline" href={`${base}/history`}>History</a>.</p>
 )}
 {sid && (
   <>
